@@ -52,16 +52,32 @@ namespace Blogger.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] BlogRequest blogRequest)
+        public async Task<ActionResult> Create([FromBody] CreateBlogRequest createBlogRequest)
         {
-            var blogCommand = new BlogCommand
+            var blogCommand = new CreateBlogCommand
             {
-                Title = blogRequest.Title,
-                Description = blogRequest.Description,
-                Body = blogRequest.Body
+                Title = createBlogRequest.Title,
+                Description = createBlogRequest.Description,
+                Body = createBlogRequest.Body
             };
 
             await _service.CreateAsync(blogCommand);
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] UpdateBlogRequest updateBlogRequest)
+        {
+            var blogCommand = new UpdateBlogCommand
+            {
+                Id = updateBlogRequest.Id,
+                Title = updateBlogRequest.Title,
+                Description = updateBlogRequest.Description,
+                Body = updateBlogRequest.Body
+            };
+
+            await _service.UpdateAsync(blogCommand);
 
             return Ok();
         }

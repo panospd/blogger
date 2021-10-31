@@ -32,5 +32,11 @@ namespace Blogger.API.Infrastructure.Respositories
         {
             return _dbContext.Blogs.SingleOrDefaultAsync(b => b.Id == id);
         }
+
+        public async Task UpdateAsync(Blog blogToUpdate)
+        {
+            _dbContext.Blogs.Update(blogToUpdate);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

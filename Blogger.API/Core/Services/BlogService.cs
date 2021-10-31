@@ -14,7 +14,7 @@ namespace Blogger.API.Core.Services
             _blogRepository = blogRepository;
         }
 
-        public async Task CreateAsync(BlogCommand command)
+        public async Task CreateAsync(CreateBlogCommand command)
         {
             var blog = new Blog
             {
@@ -24,6 +24,22 @@ namespace Blogger.API.Core.Services
             };
 
             await _blogRepository.CreateAsync(blog);
+        }
+
+        public async Task UpdateAsync(UpdateBlogCommand blogCommand)
+        {
+            var blogToUpdate = await _blogRepository.GetByIdAsync(blogCommand.Id);
+
+            if (blogToUpdate == default)
+            {
+                throw new ArgumentNullException($"{nameof(blogToUpdate)} found to be null");
+            }
+
+            blogToUpdate.Title = blogCommand.Title;
+            blogToUpdate.Description = blogCommand.Description;
+            blogToUpdate.Body = blogCommand.Body;
+
+            await _blogRepository.UpdateAsync(blogToUpdate);
         }
 
         public async Task<List<Blog>> GetAllAsync()

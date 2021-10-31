@@ -1,6 +1,6 @@
-﻿namespace Blogger.API.Controllers
+﻿namespace Blogger.API.Core.Services
 {
-    public class CreateBlogRequest
+    public abstract class BaseBlogCommand
     {
         public string Title { get; init; }
         public string Description { get; init; }

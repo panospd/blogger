@@ -9,5 +9,6 @@ namespace Blogger.API.Core.Services
         Task CreateAsync(Blog blog);
         Task<List<Blog>> GetAllAsync();
         Task<Blog> GetByIdAsync(Guid id);
+        Task UpdateAsync(Blog blogToUpdate);
     }
 }
