@@ -1,5 +1,5 @@
 ﻿using Blogger.API.Core;
-using Blogger.API.Core.Services;
+using Blogger.API.Core.Services.BlogUseCases;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

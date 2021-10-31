@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Blogger.API.Core.Services
+namespace Blogger.API.Core.Services.BlogUseCases
 {
     public interface IBlogRepository
     {

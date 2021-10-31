@@ -1,4 +1,4 @@
-﻿namespace Blogger.API.Controllers
+﻿namespace Blogger.API.Api.Blogs
 {
     public class CreateBlogRequest
     {

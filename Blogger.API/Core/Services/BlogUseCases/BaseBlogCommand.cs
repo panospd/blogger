@@ -1,4 +1,4 @@
-﻿namespace Blogger.API.Core.Services
+﻿namespace Blogger.API.Core.Services.BlogUseCases
 {
     public abstract class BaseBlogCommand
     {

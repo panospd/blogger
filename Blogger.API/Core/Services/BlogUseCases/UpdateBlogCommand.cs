@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blogger.API.Core.Services
+namespace Blogger.API.Core.Services.BlogUseCases
 {
     public class UpdateBlogCommand : BaseBlogCommand
     {
