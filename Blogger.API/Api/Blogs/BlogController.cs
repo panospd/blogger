@@ -22,7 +22,7 @@ namespace Blogger.API.Api.Blogs
         [HttpGet]
         public async Task<ActionResult<List<BlogDto>>> GetAllAsync()
         {
-            List<Blog> blogs = await _service.GetAllAsync();
+            var blogs = await _service.GetAllAsync();
 
             var blogDtos = blogs.Select(b => new BlogDto
             {
