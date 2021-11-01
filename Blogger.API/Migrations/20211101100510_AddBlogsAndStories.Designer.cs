@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blogger.API.Migrations
 {
     [DbContext(typeof(BloggerContext))]
-    [Migration("20211031110406_AddStoriesTable")]
-    partial class AddStoriesTable
+    [Migration("20211101100510_AddBlogsAndStories")]
+    partial class AddBlogsAndStories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
