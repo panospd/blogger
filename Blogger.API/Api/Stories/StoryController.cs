@@ -29,6 +29,7 @@ namespace Blogger.API.Api.Stories
                 Title = s.Title,
                 Message = s.Message
             });
+
             return Ok(storiesDTOS);
         }
 
@@ -42,6 +43,7 @@ namespace Blogger.API.Api.Stories
                 Title = story.Title,
                 Message = story.Message
             };
+
             return Ok(storyDTO);
         }
 
@@ -67,11 +69,9 @@ namespace Blogger.API.Api.Stories
                 Title = updateStoryRequest.Title,
                 Message = updateStoryRequest.Message
             };
+
             await _service.UpdateAsync(storyCommand);
             return Ok();
         }
-
-
-
     }
 }

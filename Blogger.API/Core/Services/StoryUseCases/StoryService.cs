@@ -20,7 +20,6 @@ namespace Blogger.API.Core.Services.StoryUseCases
         public async Task<Story> GetByIdAsync(Guid id)
         {
             return await _repository.GetByIdAsync(id);
- 
         }
 
         public async Task CreateAsync(CreateStoryCommand storyCommand)

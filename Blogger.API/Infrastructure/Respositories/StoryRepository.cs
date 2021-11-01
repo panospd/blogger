@@ -10,7 +10,6 @@ namespace Blogger.API.Infrastructure.Respositories
     public class StoryRepository :IStoryRepository
     {
         private readonly BloggerContext _context;
-
         public StoryRepository(BloggerContext context)
         {
             _context = context;
