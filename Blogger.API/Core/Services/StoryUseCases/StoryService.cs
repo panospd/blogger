@@ -40,9 +40,9 @@ namespace Blogger.API.Core.Services.StoryUseCases
             if (storyToUpdate == default)
                 throw new ArgumentNullException(nameof(storyToUpdate));
 
-            updateStoryCommand.Id = storyToUpdate.Id;
-            updateStoryCommand.Title = storyToUpdate.Title;
-            updateStoryCommand.Message = storyToUpdate.Message;
+            storyToUpdate.Id = updateStoryCommand.Id;
+            storyToUpdate.Title = updateStoryCommand.Title;
+            storyToUpdate.Message = updateStoryCommand.Message;
 
             await _repository.UpdateAsync(storyToUpdate);
         }
