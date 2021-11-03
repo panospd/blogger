@@ -11,6 +11,6 @@ namespace Blogger.API.Core.Services.StoryUseCases
         Task<Story> GetByIdAsync(Guid id);
         Task CreateAsync(Story story);
         Task UpdateAsync(Story story);
-        Task DeleteAsync(Story story); ///
+        Task DeleteAsync(Story story);
     }
 }
