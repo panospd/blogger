@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Blogger.API.Api.Stories
 {
     [ApiController]
-    [Route ("api/[controller]")]  
+    [Route("api/[controller]")]
     public class StoryController : ControllerBase
     {
         private readonly StoryService _service;
@@ -71,6 +71,14 @@ namespace Blogger.API.Api.Stories
             };
 
             await _service.UpdateAsync(storyCommand);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAsync(Guid id)
+        {
+            await _service.DeleteAsync(id);
+
             return Ok();
         }
     }
