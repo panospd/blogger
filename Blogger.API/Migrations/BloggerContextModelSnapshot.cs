@@ -38,6 +38,25 @@ namespace Blogger.API.Migrations
 
                     b.ToTable("Blogs");
                 });
+
+            modelBuilder.Entity("Blogger.API.Core.Story", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stories");
+                });
 #pragma warning restore 612, 618
         }
     }

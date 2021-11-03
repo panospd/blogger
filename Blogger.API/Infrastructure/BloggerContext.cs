@@ -12,6 +12,7 @@ namespace Blogger.API.Infrastructure
         }
 
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Story> Stories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
