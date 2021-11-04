@@ -47,9 +47,21 @@ namespace Blogger.API.Core.Services.BlogUseCases
             return await _blogRepository.GetAllAsync();
         }
 
-        public Task<Blog> GetByIdAsync(Guid id)
+        public async Task<Blog> GetByIdAsync(Guid id)
         {
-            return _blogRepository.GetByIdAsync(id);
+            return await _blogRepository.GetByIdAsync(id);
+        }
+
+        public async Task SoftDeleteAsync(Guid id)
+        {
+            var blogToSoftDelete = await _blogRepository.GetByIdAsync(id);
+
+            if (blogToSoftDelete == default)
+                throw new ArgumentNullException(nameof(blogToSoftDelete));
+           
+            blogToSoftDelete.IsDeleted = true;
+
+            await _blogRepository.UpdateAsync(blogToSoftDelete);
         }
     }
 }

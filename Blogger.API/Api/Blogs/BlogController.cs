@@ -81,5 +81,12 @@ namespace Blogger.API.Api.Blogs
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> SoftDeleteAsync(Guid id)
+        {
+            await _service.SoftDeleteAsync(id);
+            return Ok();
+        }
     }
 }

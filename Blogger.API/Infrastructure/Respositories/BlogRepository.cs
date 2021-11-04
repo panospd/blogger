@@ -25,17 +25,17 @@ namespace Blogger.API.Infrastructure.Respositories
 
         public async Task<List<Blog>> GetAllAsync()
         {
-            return await _dbContext.Blogs.ToListAsync();
+            return await _dbContext.Blogs.Where(b => b.IsDeleted == false).ToListAsync();
         }
 
         public Task<Blog> GetByIdAsync(Guid id)
         {
-            return _dbContext.Blogs.SingleOrDefaultAsync(b => b.Id == id);
+            return _dbContext.Blogs.Where(b => b.IsDeleted == false).SingleOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task UpdateAsync(Blog blogToUpdate)
+        public async Task UpdateAsync(Blog blog)
         {
-            _dbContext.Blogs.Update(blogToUpdate);
+            _dbContext.Blogs.Update(blog);
             await _dbContext.SaveChangesAsync();
         }
     }
