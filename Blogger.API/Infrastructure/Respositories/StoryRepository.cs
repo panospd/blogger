@@ -24,7 +24,7 @@ namespace Blogger.API.Infrastructure.Respositories
         public async Task DeleteAsync(Story story)
         {
              _context.Stories.Remove(story);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); //
 
         }
 
