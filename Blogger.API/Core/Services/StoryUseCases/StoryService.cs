@@ -46,5 +46,15 @@ namespace Blogger.API.Core.Services.StoryUseCases
 
             await _repository.UpdateAsync(storyToUpdate);
         }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var storyToDelete = await _repository.GetByIdAsync(id);
+
+            if (storyToDelete == default)
+                throw new ArgumentNullException(nameof(storyToDelete));
+
+            await _repository.DeleteAsync(storyToDelete);
+        }
     }
 }
