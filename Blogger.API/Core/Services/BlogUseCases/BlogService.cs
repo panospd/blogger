@@ -52,7 +52,7 @@ namespace Blogger.API.Core.Services.BlogUseCases
             return await _blogRepository.GetByIdAsync(id);
         }
 
-        public async Task SoftDeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var blogToSoftDelete = await _blogRepository.GetByIdAsync(id);
 
