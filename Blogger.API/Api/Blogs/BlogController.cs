@@ -81,5 +81,12 @@ namespace Blogger.API.Api.Blogs
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAsync(Guid id)
+        {
+            await _service.DeleteAsync(id);
+            return Ok();
+        }
     }
 }
