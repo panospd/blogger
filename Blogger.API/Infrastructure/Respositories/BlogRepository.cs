@@ -26,8 +26,8 @@ namespace Blogger.API.Infrastructure.Respositories
         public async Task<List<Blog>> GetAllAsync()
         {
             return await _dbContext.Blogs
-                            .Where(b => b.IsDeleted == false)
-                            .ToListAsync();
+                .Where(b => !b.IsDeleted)
+                .ToListAsync();
         }
 
         public Task<Blog> GetByIdAsync(Guid id)
