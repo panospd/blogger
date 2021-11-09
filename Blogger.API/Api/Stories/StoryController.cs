@@ -15,7 +15,7 @@ namespace Blogger.API.Api.Stories
         private readonly StoryService _service;
 
         public StoryController(StoryService service)
-        {
+        {            
             _service = service;
         }
 

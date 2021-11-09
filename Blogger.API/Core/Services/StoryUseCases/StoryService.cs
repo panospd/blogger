@@ -31,6 +31,7 @@ namespace Blogger.API.Core.Services.StoryUseCases
             };
 
             await _repository.CreateAsync(story);
+            await _repository.CommitAsync();
         }
 
         public async Task UpdateAsync(UpdateStoryCommand updateStoryCommand)
@@ -44,7 +45,8 @@ namespace Blogger.API.Core.Services.StoryUseCases
             storyToUpdate.Title = updateStoryCommand.Title;
             storyToUpdate.Message = updateStoryCommand.Message;
 
-            await _repository.UpdateAsync(storyToUpdate);
+            _repository.Update(storyToUpdate);
+            await _repository.CommitAsync();
         }
 
         public async Task DeleteAsync(Guid id)
@@ -54,7 +56,8 @@ namespace Blogger.API.Core.Services.StoryUseCases
             if (storyToDelete == default)
                 throw new ArgumentNullException(nameof(storyToDelete));
 
-            await _repository.DeleteAsync(storyToDelete);
+            _repository.Delete(storyToDelete);
+            await _repository.CommitAsync();
         }
     }
 }
