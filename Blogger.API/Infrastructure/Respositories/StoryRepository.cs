@@ -38,10 +38,5 @@ namespace Blogger.API.Infrastructure.Respositories
         {
             DbContext.Stories.Update(story);
         }
-
-        public async Task CommitAsync()
-        {
-            await DbContext.SaveChangesAsync();
-        }
     }
 }
