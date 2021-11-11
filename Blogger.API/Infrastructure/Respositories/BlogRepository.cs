@@ -8,37 +8,33 @@ using System.Threading.Tasks;
 
 namespace Blogger.API.Infrastructure.Respositories
 {
-    public class BlogRepository : IBlogRepository
+    public class BlogRepository : BaseRepository, IBlogRepository
     {
-        private readonly BloggerContext _dbContext;
-
-        public BlogRepository(BloggerContext dbContext)
+        public BlogRepository(BloggerContext context) 
+            : base(context)
         {
-            _dbContext = dbContext;
         }
 
         public async Task CreateAsync(Blog blog)
         {
-            await _dbContext.Blogs.AddAsync(blog);
-            await _dbContext.SaveChangesAsync();
+            await DbContext.Blogs.AddAsync(blog);
         }
 
         public async Task<List<Blog>> GetAllAsync()
         {
-            return await _dbContext.Blogs
+            return await DbContext.Blogs
                 .Where(b => !b.IsDeleted)
                 .ToListAsync();
         }
 
         public Task<Blog> GetByIdAsync(Guid id)
         {
-            return _dbContext.Blogs.SingleOrDefaultAsync(b => b.Id == id && !b.IsDeleted);
+            return DbContext.Blogs.SingleOrDefaultAsync(b => b.Id == id && !b.IsDeleted);
         }
 
-        public async Task UpdateAsync(Blog blog)
+        public void Update(Blog blog)
         {
-            _dbContext.Blogs.Update(blog);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Blogs.Update(blog);
         }
     }
 }

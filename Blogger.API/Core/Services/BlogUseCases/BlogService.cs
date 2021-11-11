@@ -1,5 +1,4 @@
-﻿using Blogger.API.Infrastructure.Respositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,6 +23,7 @@ namespace Blogger.API.Core.Services.BlogUseCases
             };
 
             await _blogRepository.CreateAsync(blog);
+            await _blogRepository.CommitAsync();
         }
 
         public async Task UpdateAsync(UpdateBlogCommand blogCommand)
@@ -39,7 +39,8 @@ namespace Blogger.API.Core.Services.BlogUseCases
             blogToUpdate.Description = blogCommand.Description;
             blogToUpdate.Body = blogCommand.Body;
 
-            await _blogRepository.UpdateAsync(blogToUpdate);
+            _blogRepository.Update(blogToUpdate);
+            await _blogRepository.CommitAsync();
         }
 
         public async Task<List<Blog>> GetAllAsync()
@@ -61,7 +62,9 @@ namespace Blogger.API.Core.Services.BlogUseCases
            
             blogToSoftDelete.IsDeleted = true;
 
-            await _blogRepository.UpdateAsync(blogToSoftDelete);
+            _blogRepository.Update(blogToSoftDelete);
+
+            await _blogRepository.CommitAsync();
         }
     }
 }
