@@ -29,7 +29,7 @@ namespace Blogger.API.Api.Stories
                 Id = s.Id,
                 Title = s.Title,
                 Message = s.Message,
-                TagsDTO = (List<TagDTO>)s.Tags.Select(t => new TagDTO
+                TagsDTO = s.Tags.Select(t => new TagDTO
                 {
                     Id = t.Id,
                     Name = t.Name
