@@ -27,12 +27,12 @@ namespace Blogger.API.Infrastructure.Respositories
 
         public async Task<List<Story>> GetAllAsync()
         {
-            return await _context.Stories.ToListAsync();
+            return await _context.Stories.Include(s => s.Tags).ToListAsync();
         }
 
         public async Task<Story> GetByIdAsync(Guid id)
         {
-            return await _context.Stories.SingleOrDefaultAsync(s => s.Id == id);
+            return await _context.Stories.Include(s=>s.Tags).SingleOrDefaultAsync(s => s.Id == id);
         }
 
         public void Update(Story story)

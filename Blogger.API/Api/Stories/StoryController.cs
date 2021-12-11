@@ -1,4 +1,5 @@
 ﻿
+using Blogger.API.Api.Tags;
 using Blogger.API.Core.Services.StoryUseCases;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,8 +28,13 @@ namespace Blogger.API.Api.Stories
             {
                 Id = s.Id,
                 Title = s.Title,
-                Message = s.Message
-            });
+                Message = s.Message,
+                TagsDTO = (List<TagDTO>)s.Tags.Select(t => new TagDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name
+                }).ToList()
+            }); 
 
             return Ok(storiesDTOS);
         }
@@ -41,7 +47,12 @@ namespace Blogger.API.Api.Stories
             {
                 Id = story.Id,
                 Title = story.Title,
-                Message = story.Message
+                Message = story.Message,
+                TagsDTO = story.Tags.Select(t => new TagDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name
+                }).ToList()
             };
 
             return Ok(storyDTO);
@@ -53,7 +64,11 @@ namespace Blogger.API.Api.Stories
             var storyCommand = new CreateStoryCommand
             {
                 Title = storyRequest.Title,
-                Message = storyRequest.Message
+                Message = storyRequest.Message,
+                TagsCommand = storyRequest.TagsRequest.Select(t => new CreateTagCommand
+                {
+                    Name = t.Name
+                }).ToList()
             };
 
             await _service.CreateAsync(storyCommand);
@@ -67,7 +82,12 @@ namespace Blogger.API.Api.Stories
             {
                 Id = updateStoryRequest.Id,
                 Title = updateStoryRequest.Title,
-                Message = updateStoryRequest.Message
+                Message = updateStoryRequest.Message,
+                TagsCommand = updateStoryRequest.TagsRequest.Select(t => new UpdateTagCommand
+                {
+                    Id = t.Id,
+                    Name = t.Name
+                }).ToList()
             };
 
             await _service.UpdateAsync(storyCommand);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Blogger.API.Core.Services.StoryUseCases
@@ -27,7 +28,11 @@ namespace Blogger.API.Core.Services.StoryUseCases
             var story = new Story
             {
                 Title = storyCommand.Title,
-                Message = storyCommand.Message
+                Message = storyCommand.Message,
+                Tags = storyCommand.TagsCommand.Select(t => new Tag
+                {
+                    Name = t.Name
+                }).ToList()
             };
 
             await _repository.CreateAsync(story);
@@ -44,6 +49,11 @@ namespace Blogger.API.Core.Services.StoryUseCases
             storyToUpdate.Id = updateStoryCommand.Id;
             storyToUpdate.Title = updateStoryCommand.Title;
             storyToUpdate.Message = updateStoryCommand.Message;
+            storyToUpdate.Tags = updateStoryCommand.TagsCommand.Select(t => new Tag
+            {
+                Id = t.Id,
+                Name = t.Name
+            }).ToList();
 
             _repository.Update(storyToUpdate);
             await _repository.CommitAsync();
