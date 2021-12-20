@@ -46,14 +46,27 @@ namespace Blogger.API.Core.Services.StoryUseCases
             if (storyToUpdate == default)
                 throw new ArgumentNullException(nameof(storyToUpdate));
 
-            storyToUpdate.Id = updateStoryCommand.Id;
             storyToUpdate.Title = updateStoryCommand.Title;
             storyToUpdate.Message = updateStoryCommand.Message;
-            storyToUpdate.Tags = updateStoryCommand.TagsCommand.Select(t => new Tag
+
+            var tagsToUpdateCommand = updateStoryCommand.TagsCommand.Where(t => t.Id != Guid.Empty).ToList();
+
+            foreach (var tag in tagsToUpdateCommand)
             {
-                Id = t.Id,
+                var tagToUpdate = storyToUpdate.Tags.SingleOrDefault(t => t.Id == tag.Id);
+                if (tagToUpdate == default)
+                    throw new InvalidOperationException("The id is not valid");
+
+                tagToUpdate.Name = tag.Name;
+            }
+
+            var tagsToCreate = updateStoryCommand.TagsCommand.Where(t => t.Id == Guid.Empty).Select(t => new Tag
+            {
                 Name = t.Name
             }).ToList();
+
+            if (tagsToCreate.Any())
+                storyToUpdate.Tags.AddRange(tagsToCreate);
 
             _repository.Update(storyToUpdate);
             await _repository.CommitAsync();

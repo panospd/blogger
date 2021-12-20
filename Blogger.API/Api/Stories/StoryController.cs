@@ -14,27 +14,19 @@ namespace Blogger.API.Api.Stories
     public class StoryController : ControllerBase
     {
         private readonly StoryService _service;
+        private readonly Mapper _mapper;
 
-        public StoryController(StoryService service)
+        public StoryController(StoryService service, Mapper mapper)
         {            
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<StoryDTO>>> GetAllAsync()
         {
             var stories = await _service.GetAllAsync();
-            var storiesDTOS = stories.Select(s => new StoryDTO
-            {
-                Id = s.Id,
-                Title = s.Title,
-                Message = s.Message,
-                TagsDTO = s.Tags.Select(t => new TagDTO
-                {
-                    Id = t.Id,
-                    Name = t.Name
-                }).ToList()
-            }); 
+            var storiesDTOS = stories.Select(s => _mapper.StoryMapping(s)).ToList(); 
 
             return Ok(storiesDTOS);
         }
@@ -43,17 +35,7 @@ namespace Blogger.API.Api.Stories
         public async Task<ActionResult<StoryDTO>> GetByIdAsync(Guid id)
         {
             var story = await _service.GetByIdAsync(id);
-            var storyDTO = new StoryDTO
-            {
-                Id = story.Id,
-                Title = story.Title,
-                Message = story.Message,
-                TagsDTO = story.Tags.Select(t => new TagDTO
-                {
-                    Id = t.Id,
-                    Name = t.Name
-                }).ToList()
-            };
+            var storyDTO = _mapper.StoryMapping(story);
 
             return Ok(storyDTO);
         }

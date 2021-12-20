@@ -1,3 +1,4 @@
+using Blogger.API.Api.Stories;
 using Blogger.API.Core.Services;
 using Blogger.API.Core.Services.BlogUseCases;
 using Blogger.API.Core.Services.StoryUseCases;
@@ -41,6 +42,7 @@ namespace Blogger.API
 
             services.AddTransient<IStoryRepository, StoryRepository>();
             services.AddScoped<StoryService>();
+            services.AddScoped<Mapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
